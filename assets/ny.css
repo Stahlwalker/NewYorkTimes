@@ -1,0 +1,65 @@
+#submit {
+    color: rgb(44, 8, 102)
+}
+
+.row1 {
+    background-color: rgb(44, 8, 102);
+    text-align: center;
+    color: white;
+    padding: 50px;
+    margin-bottom: 40px;
+    font-size: 60px;
+    font-weight: bold;
+}
+
+h1 {
+    font-size: 16px;
+    
+}
+
+#parameters {
+    border: 5px solid rgb(44, 8, 102);
+}
+
+h4 {
+    background-color: rgb(44, 8, 102);
+    color: white;
+    padding: 10px;
+    font-weight: bold;
+    margin-top: -1px;
+}
+
+.toparticles {
+    border: 5px solid rgb(44, 8, 102);
+    margin-top: 25px;
+}
+
+.content{
+    font-size: 12px;
+}
+
+form {
+    margin: 10px;
+}
+
+
+.footer{
+    bottom: 0;
+    width: 100%;
+    background-color: rgb(44, 8, 102);
+    text-align: center;
+    height: 3em;
+    margin-top: 1em;
+    padding: 10px;
+
+}
+
+.navbar-brand {
+    font-family: 'Georgia', Times, 'Times New Roman', serif;
+    color: white;
+    font-size: 2;
+    text-align: center;
+    float: none;
+    vertical-align: middle;
+  
+}

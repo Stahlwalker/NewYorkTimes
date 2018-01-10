@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>New York Times Search</title>
+</head>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="assets/ny.css">
+<body>
+
+    <div class="container">
+        <div class="row1">
+            <p>New York Times Search</p>
+        </div>
+
+       <div id="parameters">
+           <h4>Search Parameters</h4>
+
+        <form>
+            <div class="form-group">
+              <label for="exampleInputEmail1">Search Term:</label>
+              <input type="search" class="form-control" id="search-input">
+            </div>
+            <div class="form-group">
+              <label for="exampleInputPassword1">Number of Records to Retrieve:</label>
+              <input type="number" class="form-control" id="limit-input">
+            </div>
+            <div class="form-group">
+                <label for="exampleInputEmail1">Start Year (Optional):</label>
+                <input type="year" class="form-control" id="start-input" placeholder="YYYYMMDD">
+              </div>
+              <div class="form-group">
+                <label for="exampleInputPassword1">End Year (Optional):</label>
+                <input type="year" class="form-control" id="end-input" placeholder="YYYYMMDD">
+              </div>
+                
+                <button id="submit" class="btn btn-default">Submit</button>
+                <button type="submit" class="btn btn-default">Clear Results</button>
+              
+            
+        </form>
+        </div>  
+            <div class="toparticles">
+                <h4>Top Articles</h4>
+                <div class="content">
+
+                </div>
+            </div>
+
+            <div class="footer">
+                <a class="navbar-brand" href="index.html"><font size="2">@Copyright 2018</font></a>
+            </div> 
+            </div>
+    </div> 
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script type="text/javascript">
+
+    var searchTerm = "";
+    var startDate = "";
+    var endDate = "";
+    var limit = 5;
+
+    $("#submit").on("click", function(event) {
+      event.preventDefault();
+      searchTerm = $("#search-input").val().trim();
+      startDate = $("#start-input").val().trim();
+      endDate = $("#end-input").val().trim();
+      limit = $("#limit-input").val().trim();
+
+      console.log(searchTerm);
+      console.log(startDate);
+      console.log(endDate);
+      console.log(limit);
+
+      var queryURL = "https://api.nytimes.com/svc/search/v2/articlesearch.json?api-key=ef35b6b83a9e4e85bbc65d8699ec62e8&";
+
+      if (searchTerm == "") {
+        queryURL = queryURL;
+      } else {
+        queryURL += "q=" + searchTerm + "&";
+      }
+
+      if (startDate == "") {
+        queryURL = queryURL;
+      } else {
+        queryURL += "begin_date=" + startDate + "&";
+      }
+
+      if (endDate == "") {
+        queryURL = queryURL;
+      } else {
+        queryURL += "end_date=" + endDate;
+      }
+
+      if (limit == "") {
+        limit = 5;
+      } else {
+        limit = limit;
+      }
+
+      console.log(queryURL);
+
+      $.ajax({
+          url: queryURL,
+          method: "GET"
+        })
+        .done(function(response) {
+          
+          for (var i = 0; i < limit; i++) {
+            var headline = response.response.docs[i].headline.main;
+            var author = response.response.docs[i].byline.original;
+
+            $(".toparticles").append("<h1>" + (i+1) + ".   </h1>").append("<h1>" + headline + "</h1>").append("<h4>" + author + "</h4>");
+          }
+        });
+    });
+
+    $("#clearbutton").on("click", function(event) {
+      event.preventDefault();
+      queryURL = "https://api.nytimes.com/svc/search/v2/articlesearch.json?api-key=ef35b6b83a9e4e85bbc65d8699ec62e8&";
+      $(".toparticles").text("");
+      searchTerm = "";
+      startDate = "";
+      endDate = "";
+      limit = 5;
+    });
+  
+  </script>
+</body>
+</html>
